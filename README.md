@@ -20,7 +20,7 @@ cd ../frontend
 yarn install
 ```
 
-#Start app
+# Start app
 ```bash
 php backend/artisan serve
 cd frontend
