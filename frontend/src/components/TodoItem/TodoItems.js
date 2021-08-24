@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import TodoItem from "./TodoItem";
 import {destroy, get, store, update} from "../../uploader";
@@ -8,8 +8,12 @@ function TodoItems({className, fetchLists}) {
     let {id} = useParams()
     let [list, setList] = React.useState()
 
+    let searchString = ''
+
+    const [searchStringInputValue, setSearchStringInputValue] = React.useState()
+
     function fetchList() {
-        get.current_list(id)
+        get.list(id, searchString)
             .then(list => {
                 setList(list)
             })
@@ -61,8 +65,10 @@ function TodoItems({className, fetchLists}) {
 
     let [addFormValue, setAddFormValue] = React.useState('')
 
-    function handleChangeAddFormValue(event) {
-        setAddFormValue(event.target.value)
+    function handleChangeSearchInput(event) {
+        searchString = event.target.value
+        fetchList()
+        setSearchStringInputValue(event.target.value)
     }
 
     function handleSubmitAddForm(event) {
@@ -76,6 +82,13 @@ function TodoItems({className, fetchLists}) {
     return !list ? null : (
         <div className={`list-block ${className}`}>
             <h1 className="list-block__title">{list.title}</h1>
+            <form onSubmit={(e) => {e.preventDefault(); fetchList()}}>
+                <input className="list-block__search-input form-control"
+                       placeholder="Search..."
+                       value={searchStringInputValue}
+                       onChange={handleChangeSearchInput}
+                       type="text"/>
+            </form>
             <ul className="list-block__list">
                 { list.items.map((item, index) =>
                     <TodoItem
@@ -88,11 +101,11 @@ function TodoItems({className, fetchLists}) {
             </ul>
 
             <form className="list-block__add-form" onSubmit={handleSubmitAddForm}>
-                <input className="list-block__add-input form-control"
-                       onChange={handleChangeAddFormValue}
+                <input className="form-control"
+                       placeholder="Add task..."
+                       onChange={e => {setAddFormValue(e.target.value)}}
                        value={addFormValue}
                        type="text"/>
-                <button className="list-block__add-btn btn">Create ToDo</button>
             </form>
         </div>
     )

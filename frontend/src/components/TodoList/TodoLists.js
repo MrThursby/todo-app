@@ -62,10 +62,11 @@ function TodoLists({lists, fetchLists, className}) {
 
             <form className="list-block__add-form" onSubmit={handleSubmitAddForm}>
                 <input className="list-block__add-input form-control"
+                       placeholder="New list..."
                        onChange={handleChangeAddFormValue}
                        value={addFormValue}
                        type="text"/>
-                <button className="list-block__add-btn btn">Create list</button>
+                <button className="list-block__add-btn btn">Create</button>
             </form>
         </div>
     )
