@@ -55,7 +55,7 @@ function TodoLists({lists, fetchLists, className}) {
                         list={list}
                         fetchCurrent={() => history.push(list.id)}
                         deleteList={deleteList}
-                        key={index}
+                        key={list.id + index}
                     />
                 ) : null}
             </ul>
