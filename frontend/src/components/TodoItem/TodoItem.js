@@ -20,15 +20,17 @@ function TodoItem({item, updateItem, deleteItem}) {
     return (
         <li className="list-block__item"
             style={isDeleted ? {display: 'none'} : null}>
-            <input className="list-block__item-checkbox"
-                   type="checkbox"
-                   checked={isCompleted}
-                   onChange={toggleCompletedStatus} />
-            <span
-                className="list-block__item-text"
-                style={isCompleted ? {textDecoration: 'line-through'} : {}}>
+            <label>
+                <input className="list-block__item-checkbox"
+                       type="checkbox"
+                       checked={isCompleted}
+                       onChange={toggleCompletedStatus} />
+                <span
+                    className="list-block__item-text"
+                    style={isCompleted ? {textDecoration: 'line-through'} : {}}>
                         {item.title}
-                    </span>
+                </span>
+            </label>
             <button className="list-block__item-btn btn"
                     onClick={lazyDelete}
                     title={"Delete ToDo"}>&times;</button>
